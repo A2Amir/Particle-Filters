@@ -138,4 +138,68 @@ p=p2
 ~~~ 
 I got about half of particle filters implemented, unfortunately it's the easy half, but the difficult half isn't that much more difficult.
 
+## Importance Weight
+
+To explain how the second half works, suppose an actual robot sits in the middle of the world, 
+and it measures these exact distances to the four landmarks Obviously (see below figure), there are some measurement noise that we just model as an added Gaussian with zero mean meaning there would be a certain chance of being too short or too long and that probability is governed by a Gaussian. 
+
+<p align="right"> <img src="./img/7.jpg" style="right;" alt="  some measurement noise  " width="600" height="400"> </p> 
+
+Now let's consider a particle (red in the below figure) that hypothesizes the robot coordinates are close to the actual coordinate (blue in the below figure) and it also hypothesizes a different heading direction. We can then take the measurement vector from the actual coordinate (blue lines) and apply it to the hypothesized particle, obviously this would be a very poor measurement vector for the hypothesized particle (black lines). In particular, the measurement vector we would've expected looks more like green lines.  
+That just makes the specific location of the hypothesized particle really unlikely.
+
+<p align="right"> <img src="./img/8.jpg" style="right;" alt="  Importance Weight  " width="600" height="400"> </p> 
+
+In fact, the closer our particle to the correct position, the more likely will be the set of measurements given that position. Now here comes the big trick in particle filters: the mismatch of the actual measurement and the predicted measurement leads to a so called importance weight that tells us how important that specific particle is.
+
+We have many different particles and a specific measurement. Each of these particles will have a different weight. Some look very plausible, others might look very implausible as indicated by the size of the circles over here(see below figure).
+let the particles that are close to the blue point survive somewhat at random but the probability of survival will be proportional to their weights. 
+
+
+If a particle has a very big weight like the guys near the blue point will survive at a higher proportion than someone with a really small weight, which means after what's called resampling, which is just a technical term for randomly drawing N new particles from the old ones with replacement in proportion to the importance weight. 
+
+
+<p align="right"> <img src="./img/9.jpg" style="right;" alt="  Importance Weight  " width="600" height="400"> </p> 
+
+After that resampling phase, the guys near the blue point (actual position) very likely to live on, in fact many, many times whereas the guys far away from the actual position likely have died out. 
+
+We get the fact that the particles cluster around regions of higher posterior probability. 
+That is really cool and all we have to do are:
+
+* we have to implement a method for setting importance weights 
+* we have to implement a method for resamplingt that grabs particles in proportion to those weights.
+
+What I want you to program now is a way to assign importance weights to each of the particles. I want you to make a list called w of 1000 elements where each element on the list contains a number. The number is proportional to how important that particle is.  
+
+
+To make things easier It is coded a function in the class robot called the measurement_prob. This function accepts a single parameter, the measurement vector (the Z) and it calculates as an output how likely this measurement is. It uses effectively a Gaussian that measures how far away the predicted measurements would be from the actual measurements. 
+
+We have to actually assume that there is measurement noise. If there is no measurement noise, then the measurement_prob function will end up dividing by 0.
+
+ 
+To define the noise for the particles where we create the particles for the first time, we initialize the positions with random numbers and assume a certain amount of noise that goes with each particle.
+
+To construct a list of 1000 elements in W so that each number in this vector reflects the output of the function measurement_prob() applied to the measurement Z that we receive from the real robot.
+~~~python
+N=1000
+p=[]
+Z = myrobot.sense()
+
+for i in range(N):
+    x=robot()
+    x.set_noise(0.05,0.05,5.0) #set noise
+    p.append(x)
+print(len(p))
+
+p2=[]
+for i in range(N):
+    p2.append(p[i].move(.1,5.0))
+p=p2
+w=[]
+for i in range(N):
+    w.append(p[i].measurement_prob(Z))
+print(w)
+
+~~~
+
 
