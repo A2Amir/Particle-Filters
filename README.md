@@ -92,3 +92,50 @@ print (myrobot.sense())
 
 [10.0, 92.19544457292888, 60.8276253029822, 70.0]
 
+## Robot World
+
+Now we know about the class robot, who can turn and then move straight after the turn, and it also can sense the distance to 4 designated landmarks, L1, L2, L3, and L4, and these distances comprise the measurement vector of the robot. 
+
+I told you the robot lives in a world of size 100 x 100 and if this robot falls off one end, it appears on the other. it's a cyclic world. 
+
+<p align="right"> <img src="./img/4.jpg" style="right;" alt=" Robot World" width="600" height="400"> </p> 
+
+## Creating Particles
+
+The particle filter that we are going to program maintains a set of 1000 random guesses (red dots) as to where the robot might be. Each of the red dots is a vector which contains an X coordinate, in this case 38.2, a Y coordinate 12.4 and a heading direction of 0.1, which is the angle at which the robot points relative to the X axis (see below figure). 
+
+
+<p align="right"> <img src="./img/5.jpg" style="right;" alt=" Particles " width="600" height="400"> </p> 
+
+to make a particle set of 1000 particles, every time we call the function robot and assign it to a list called p[],the elements of the p[] are x, y, and orientation which are initialized at random. 
+
+~~~python
+N=1000
+p=[]
+for i in range(N):
+    x=robot()
+    p.append(x)
+print(len(p))
+~~~ 
+100
+
+I now want to take each of these particles and simulate robot motion. Depending on the heading direction, this might yield a different direction. So, each of these particles shall first turn by 0.1 and then move by 5 meters (below figure).
+
+<p align="right"> <img src="./img/6.jpg" style="right;" alt=" Creating Particles and move " width="600" height="400"> </p> 
+
+~~~python
+N=1000
+p=[]
+for i in range(N):
+    x=robot()
+    p.append(x)
+print(len(p))
+p2=[]
+for i in range(N):
+    p2.append(p[i].move(.1,5.0))
+p=p2
+
+~~~ 
+I got about half of particle filters implemented, unfortunately it's the easy half, but the difficult half isn't that much more difficult.
+
+
