@@ -255,9 +255,75 @@ p=p3
 
 ## Orientation
 
+We always get a random set of orientations, eventually they matter? Will orientation or heading never play a role?
+Of course they will eventually matter. Again, assume our 4 landmarks and consider our robot facing to the right. We get a certain set of distances that is invariant to the orientation but now this robot moves (from point A to point B) and we get a new set of distances and now orientation matters. 
+
+
+<p align="right"> <img src="./img/14.jpg" style="right;" alt=" Orientation" width="600" height="400"> </p> 
 
 
 
+If we assume a different initial orientation, like the black line and that robot moves (from A to C) its measurements will be very, very different. So orientation does matter in the second step of particle filtering because the prediction is so different for different orientations. Let's go and program this. 
+
+To take the particle filter and program it to run twice  we're going to put a "for" loop, 
+for t in range(T) and then you have to indent all the stuff below. I indent all the way to the final statement, but I only want to print the final distribution.
+~~~python
+myrobot = robot()
+myrobot = myrobot.move(0.1, 5.0)
+Z = myrobot.sense()
+N = 1000
+T = 10 #Leave this as 10 for grading purposes.
+
+p = []
+for i in range(N):
+    r = robot()
+    r.set_noise(0.05, 0.05, 5.0)
+    p.append(r)
+
+for t in range(T):
+    myrobot = myrobot.move(0.1, 5.0)
+    Z = myrobot.sense()
+
+    p2 = []
+    for i in range(N):
+        p2.append(p[i].move(0.1, 5.0))
+    p = p2
+
+    w = []
+    for i in range(N):
+        w.append(p[i].measurement_prob(Z))
+
+    p3 = []
+    index = int(random.random() * N)
+    beta = 0.0
+    mw = max(w)
+    for i in range(N):
+        beta += random.random() * 2.0 * mw
+        while beta > w[index]:
+            beta -= w[index]
+            index = (index + 1) % N
+        p3.append(p[index])
+    p = p3
+print(p)
+~~~
+I set  the variable T to the 10 steps, I actually get orientations that all look alike.
+
+## Error
+
+It is programmed a "eval" function which takes in as a robot position and a particle set. It computes the average error of each particle, relative to the robot position in "x" and "y" not in the orientation and the way does it, it basically compares the "x" of the particle with the "x" of the robot, computes the Euclidian distance of the differences, and averages all of those.  it sums them all up and it averages them, through the number of particles. 
+
+By adding at the above code only  one line ‘’print(eval(myrobot,p))’ we can produce a sequence of performance evaluations for each step.
 
 
+## Math behind the particle filter
+
+We had measurement updates and motion updates. In the measurement update, we computed posterior over x, given the measurement and it was proportional to - after normalization -of probability of the measurement given x multiplied by p(x).
+
+
+<p align="right"> <img src="./img/15.jpg" style="right;" alt="  measurement updates" width="600" height="400"> </p> 
+
+In the motion update, if you compute a posterior of the distribution one time step later 
+and that is the convolution of the transition probability times the prior. 
+
+<p align="right"> <img src="./img/16.jpg" style="right;" alt="  motion updates" width="600" height="400"> </p> 
 
