@@ -217,7 +217,8 @@ To modify our algorithm to take the lists of particles and importance weights to
 To code resampling we use an idea, which is more efficient and empirically gives better samples. Let's represent all our particles and importance weight in a big wheel. Each particle occupies a slice that corresponds to its importance weight. Particles with a bigger weight, like W5 (see below figure), occupy more space whereas particles with a smaller weight occupy less space. 
 
 Very initially let's guess a particle index uniformly from the set of all indices, I did note this as a uniform sample at U from the discrete set of choices of index 1 to N and as a caveat in Python, of course, it goes from 0 to N-1. 
-say we pick W6 then, the trick is we are going to construct the variable  called beta which is initialized with 0 and to which I add (when I construct the particles) a uniformly drawn continuous value that sits between 0 and 2 times w max, which is the largest of the importance weights in the important set. 
+
+Say we pick W6 then, the trick is we are going to construct the variable  called beta which is initialized with 0 and to which I add (when I construct the particles) a uniformly drawn continuous value that sits between 0 and 2 times w max, which is the largest of the importance weights in the important set. 
 
 <p align="right"> <img src="./img/11.jpg" style="right;" alt="   Each particle occupies a slice  " width="600" height="400"> </p> 
 
@@ -227,9 +228,13 @@ if the importance weight of the present particle (w6) doesn't suffice to reach a
 
 <p align="right"> <img src="./img/12.jpg" style="right;" alt="  if W index isn't as big as beta " width="600" height="400"> </p> 
 
+So, what have I done? I have incremented index by one, which moves to the W7 and I removed the corresponding part of beta, which belongs to the w6, and the rest is still the same as before (see below figure). 
+
+<p align="right"> <img src="./img/13.jpg" style="right;" alt="  if W index isn't as big as beta " width="600" height="400"> </p> 
+
 We now get to the point where beta becomes smaller than W index, which is in the next situation. Now index=7, which is the index of the particle I pick in my resampling process (below figure). 
 
-<p align="right"> <img src="./img/13.jpg" style="right;" alt="  pick in the resampling process " width="600" height="400"> </p> 
+<p align="right"> <img src="./img/14.jpg" style="right;" alt="  pick in the resampling process " width="600" height="400"> </p> 
 
 
 Now I iterate and add another uniform value to beta Say I add this one (blue arrows in the below figure). The same iteration now will make index flow up by reducing beta by all the slice belonging the w8 and incrementing index to w1 and particle one is picked.
