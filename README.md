@@ -16,7 +16,8 @@
  
 ## Introduction
 
-In this section, you will learn about particle filters. In our sequence of algorithms () for estimating the state of a system, this is the third one and in many ways is the best one because:
+In this section, you will learn about particle filters. In our sequence of algorithms ([Introduction-of-Localization
+](https://github.com/A2Amir/Introduction-of-Localization),[Markov-Localization-and-the-Kidnapped-Vehicle](https://github.com/A2Amir/Markov-Localization-and-the-Kidnapped-Vehicle-)) for estimating the state of a system, this is the third one and in many ways is the best one because:
 
 * It's the easiest to program 
 * In most ways is the most flexible. 
