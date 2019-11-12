@@ -1,6 +1,19 @@
 # Particle Filters
  In this section, you will learn about particle filters for estimating the state of a system
  
+## Content
+#### 1. Introduction
+#### 2. Using Robot Class
+#### 3. Robot World
+#### 4. Creating Particles
+#### 5. Importance Weight
+#### 6. Resampling
+#### 7. Implementation of resampling
+#### 8. Orientation
+#### 9. Error
+#### 10.Math behind the particle filter
+
+ 
 ## Introduction
 
 In this section, you will learn about particle filters. In our sequence of algorithms () for estimating the state of a system, this is the third one and in many ways is the best one because:
