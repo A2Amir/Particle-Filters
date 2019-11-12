@@ -15,6 +15,4 @@ This Robot has range sensors as indicated by the blue stripes, the Robot uses so
 Now, the particle filter is represented using particles. Each of these red dots (below figure) of which there are several thousand here is a discrete guess where the robot might be. It's structured as a X coordinate, a Y coordinate, and also a heading direction and these 3 values together comprise a single guess, but a single guess is not a filter.
 A filter is the set of several thousands of such guesses that together comprise an approximate representation for the posterior of the robot. 
 
-<p align="right">
-<img src="./img/1.jpg" alt="particle filters " />
-<p align="right">
+<p align="right"> <img src="./img/1.jpg" style="right;" alt=" particle filters" width="600" height="400"> </p> 
