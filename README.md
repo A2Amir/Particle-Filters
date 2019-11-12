@@ -234,7 +234,7 @@ We now get to the point where beta becomes smaller than W index, which is in the
 
 Now I iterate and add another uniform value to beta Say I add this one (blue arrows in the below figure). The same iteration now will make index flow up by reducing beta by all the slice belonging the w8 and incrementing index to w1 and particle one is picked.
 
-<p align="right"> <img src="./img/14.jpg" style="right;" alt="  same iteration" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/15.jpg" style="right;" alt="  same iteration" width="600" height="400"> </p> 
 
 It can easily happen that the uniform value is so small that the same particle is picked twice, and it's easy to see that each particle is now picked in proportion to the total circumference.
 This is essentially the implementation for the resampling step, which is presented below:
@@ -259,7 +259,7 @@ We always get a random set of orientations, eventually they matter? Will orienta
 Of course they will eventually matter. Again, assume our 4 landmarks and consider our robot facing to the right. We get a certain set of distances that is invariant to the orientation but now this robot moves (from point A to point B) and we get a new set of distances and now orientation matters. 
 
 
-<p align="right"> <img src="./img/15.jpg" style="right;" alt=" Orientation" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/16.jpg" style="right;" alt=" Orientation" width="600" height="400"> </p> 
 
 
 
