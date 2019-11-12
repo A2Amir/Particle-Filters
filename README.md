@@ -259,7 +259,7 @@ We always get a random set of orientations, eventually they matter? Will orienta
 Of course they will eventually matter. Again, assume our 4 landmarks and consider our robot facing to the right. We get a certain set of distances that is invariant to the orientation but now this robot moves (from point A to point B) and we get a new set of distances and now orientation matters. 
 
 
-<p align="right"> <img src="./img/14.jpg" style="right;" alt=" Orientation" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/15.jpg" style="right;" alt=" Orientation" width="600" height="400"> </p> 
 
 
 
@@ -320,10 +320,10 @@ By adding at the above code only  one line ‘’print(eval(myrobot,p))’ we ca
 We had measurement updates and motion updates. In the measurement update, we computed posterior over x, given the measurement and it was proportional to - after normalization -of probability of the measurement given x multiplied by p(x).
 
 
-<p align="right"> <img src="./img/15.jpg" style="right;" alt="  measurement updates" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/17.jpg" style="right;" alt="  measurement updates" width="600" height="400"> </p> 
 
 In the motion update, if you compute a posterior of the distribution one time step later 
 and that is the convolution of the transition probability times the prior. 
 
-<p align="right"> <img src="./img/16.jpg" style="right;" alt="  motion updates" width="600" height="400"> </p> 
+<p align="right"> <img src="./img/18.jpg" style="right;" alt="  motion updates" width="600" height="400"> </p> 
 
